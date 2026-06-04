@@ -1,0 +1,156 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: #00ff82;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, rgba(0, 255, 130, 0.08), transparent 20%),
+                radial-gradient(circle at 80% 10%, rgba(0, 180, 255, 0.1), transparent 18%),
+                linear-gradient(135deg, #061028 0%, #02040a 50%, #030815 100%);
+    overflow: hidden;
+}
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 130, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    opacity: 0.35;
+}
+#game-container {
+    width: 420px;
+    position: relative;
+    padding-bottom: 10px;
+    background: linear-gradient(180deg, rgba(1, 8, 24, 0.95), rgba(3, 10, 18, 0.98));
+    border: 2px solid rgba(0, 180, 255, 0.8);
+    box-shadow: 0 0 40px rgba(0, 255, 130, 0.12), inset 0 0 30px rgba(0, 180, 255, 0.08);
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 8, 15, 0.95);
+    border: 1px solid rgba(0, 255, 130, 0.2);
+    box-shadow: 0 0 40px rgba(0, 255, 130, 0.18);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 10;
+    text-align: center;
+}
+.briefing-text {
+    width: 100%;
+    max-width: 360px;
+    height: 180px;
+    border: 1px solid rgba(0, 255, 130, 0.5);
+    overflow: hidden;
+    position: relative;
+    background: rgba(0, 0, 0, 0.78);
+    margin: 20px 0;
+    box-shadow: inset 0 0 16px rgba(0, 255, 130, 0.1);
+}
+.crawl-track { position: absolute; width: 100%; top: 0; left: 0; }
+.crawl-lines { display: block; width: 100%; }
+.crawl-lines p { margin: 10px 0; line-height: 1.4; color: #90ffd5; }
+/* animate the track containing two identical crawl blocks for seamless looping */
+.crawl-track { animation: crawl 12s linear infinite; will-change: transform; }
+@keyframes crawl { from { transform: translateY(0%); } to { transform: translateY(-50%); } }
+.briefing-mission { color: #ffffff; margin: 10px 0; font-size: 14px; }
+.hint { font-size: 12px; color: #8df7be; margin-top: 12px; }
+.btn {
+    background: rgba(2, 10, 18, 0.96);
+    border: 2px solid rgba(0, 255, 130, 0.9);
+    color: #b8ffca;
+    padding: 15px;
+    margin: 10px;
+    cursor: pointer;
+    width: 80%;
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 130, 0.1);
+}
+.btn:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 255, 130, 0.12);
+    box-shadow: 0 0 18px rgba(0, 255, 130, 0.24);
+}
+.btn-small {
+    background: rgba(2, 10, 18, 0.95);
+    border: 1px solid rgba(0, 255, 130, 0.7);
+    color: #00ff82;
+    cursor: pointer;
+    padding: 8px 12px;
+    min-width: 96px;
+    box-shadow: inset 0 0 6px rgba(0, 255, 130, 0.1);
+}
+.selected {
+    border-color: #ffffff !important;
+    background: rgba(15, 25, 40, 0.95) !important;
+}
+#dashboard {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0, 5, 15, 0.75);
+    backdrop-filter: blur(4px);
+}
+#hud-row { font-size: 14px; letter-spacing: 0.04em; }
+#status-panel { display: flex; flex-direction: column; gap: 6px; }
+#status-heading { font-size: 12px; letter-spacing: 0.15em; color: #8df7be; }
+#status-bar {
+    border: 1px solid rgba(0, 255, 130, 0.35);
+    background: rgba(0, 255, 130, 0.06);
+    height: 18px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 8px rgba(0, 255, 130, 0.12);
+}
+#status-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ff82, #00b4ff);
+    box-shadow: 0 0 14px rgba(0, 255, 130, 0.45);
+    transition: width 0.3s ease;
+}
+#status-text, #pause-text {
+    font-size: 12px;
+    color: #a0ffc9;
+    text-transform: uppercase;
+}
+#control-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+#gameCanvas {
+    background: radial-gradient(circle at center, rgba(0, 255, 130, 0.08), transparent 38%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px, 400px 400px, 400px 400px;
+    background-position: center center, 0 0, 0 0;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 255, 130, 0.16);
+    box-shadow: 0 0 30px rgba(0, 255, 130, 0.12);
+}
+#exam-screen #question-box, #exam-screen #options-box { width: 100%; max-width: 360px; margin-top: 12px; }
+#exam-screen #question-box { margin-bottom: 10px; padding: 12px; background: rgba(0, 0, 0, 0.9); border: 1px solid #00ff82; }
+#options-box .btn { width: 100%; }
+#leaderboard-list div { margin: 6px 0; }
+.glow {
+    color: #7fffd4;
+    text-shadow: 0 0 12px rgba(0, 255, 130, 0.8), 0 0 24px rgba(0, 180, 255, 0.4);
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+}
