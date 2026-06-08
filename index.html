@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Rookie Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <div id="game-container">
+
+        <!-- LOGIN SCREEN -->
+        <div id="login-screen" class="overlay">
+            <h1 class="glow">CYBER KNIGHT</h1>
+            <button class="btn" onclick="startGame(false)">LOGIN & START</button>
+            <button class="btn" onclick="startGame(true)">PLAY AS GUEST</button>
+        </div>
+
+        <!-- BRIEFING SCREEN -->
+        <div id="briefing-screen" class="overlay" style="display:none;">
+            <h1 class="glow">BRIEFING</h1>
+
+            <div id="briefing-text" class="briefing-text">
+                <div class="crawl-lines">
+                    <p class="greet">Welcome, agent.</p>
+                    <p>Your mission is to outsmart the terminal and collect XP nodes.</p>
+                    <p>Navigate the grid with arrow keys.</p>
+                    <p>Eat the green data clusters to charge the system.</p>
+                    <p>Beware the red threats — one mistake triggers a security exam.</p>
+                    <p>Hit every 500 XP mark to increase system difficulty.</p>
+                    <p>Use SPACE to pause and ENTER to confirm decisions.</p>
+                    <p>Stay sharp. The terminal is watching.</p>
+                </div>
+            </div>
+
+            <p id="briefing-mission" class="briefing-mission">Agent, secure the terminal and reach 500 XP.</p>
+            <button class="btn" onclick="beginMission()">LAUNCH MISSION</button>
+            <p class="hint">Press ENTER to confirm</p>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" style="display:none;">
+            <div id="hud-row">
+                USER: <span id="user-display"></span> | SCORE: <span id="score-val">0</span> | LIVES: <span id="lives-val">3</span>
+            </div>
+
+            <div id="status-panel">
+                <div id="status-heading">SYSTEM STATUS</div>
+                <div id="status-bar"><div id="status-bar-fill"></div></div>
+                <div id="status-text">0/500</div>
+                <div id="pause-text">Press SPACE to pause</div>
+            </div>
+
+            <div id="control-row">
+                <button id="pause-btn" class="btn-small" onclick="togglePause()">PAUSE</button>
+                <button id="skip-btn" class="btn-small" onclick="skipGame()" style="background:#ff285a;">SKIP</button>
+            </div>
+        </div>
+
+        <!-- PLAY AREA (Canvas + D-Pad) -->
+        <div id="play-area">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+            <div id="dpad">
+                <button class="dpad-btn" id="btn-up">▲</button>
+                <div class="dpad-middle">
+                    <button class="dpad-btn" id="btn-left">◀</button>
+                    <button class="dpad-btn" id="btn-right">▶</button>
+                </div>
+                <button class="dpad-btn" id="btn-down">▼</button>
+            </div>
+        </div>
+
+        <!-- EXAM SCREEN -->
+        <div id="exam-screen" class="overlay" style="display:none;">
+            <h2 id="threat-title">⚠️ THREAT DETECTED ⚠️</h2>
+            <div id="question-box"></div>
+            <div id="options-box"></div>
+        </div>
+        
+        <div id="feedback-screen" class="overlay" style="display:none;">
+    <h2 id="feedback-title">RESULT</h2>
+    <p id="feedback-msg"></p>
+    <button class="btn" onclick="closeFeedback()">CONTINUE</button>
+</div>
+        
+
+        <!-- END SCREEN -->
+        <div id="end-screen" class="overlay" style="display:none;">
+            <h2 id="end-title"></h2>
+            <p id="end-msg"></p>
+        </div>
+
+        <!-- LEADERBOARD -->
+        <div id="leaderboard-screen" class="overlay" style="display:none;">
+            <h2>LEADERBOARDS</h2>
+            <div id="leaderboard-list"></div>
+            <button class="btn" onclick="location.reload()">PLAY AGAIN</button>
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
